@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Credit_Card_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Credit_Card_Number</label>
+        <length>19</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Mix_Pct__c</fullName>
+        <externalId>false</externalId>
+        <label>Mix Pct</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Multiple_of_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Multiple of 5</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Validation</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>V-{0000}</displayFormat>
+        <label>Validation No</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Validations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>CheckCreditCardNumber</fullName>
+        <active>true</active>
+        <errorConditionFormula>NOT( REGEX(  Credit_Card_Number__c , &quot;(((\\d{4}-){3}\\d{4})|\\d{16})?&quot;))</errorConditionFormula>
+        <errorDisplayField>Credit_Card_Number__c</errorDisplayField>
+        <errorMessage>Credit Card Number should be formatted in 9999-9999-9999-9999 or 9999999999999999</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CheckMultipleOfFive</fullName>
+        <active>true</active>
+        <errorConditionFormula>MOD( Multiple_of_5__c , 5) &lt;&gt; 0</errorConditionFormula>
+        <errorDisplayField>Multiple_of_5__c</errorDisplayField>
+        <errorMessage>Value is not a multiple of 5</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CheckValidMixPct</fullName>
+        <active>true</active>
+        <errorConditionFormula>OR(
+ Mix_Pct__c &lt; 0.0,
+ Mix_Pct__c &gt; 1.0
+)</errorConditionFormula>
+        <errorDisplayField>Mix_Pct__c</errorDisplayField>
+        <errorMessage>Percentage is invalid ( can only lie between 0 to 100%)</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CheckWeekday</fullName>
+        <active>true</active>
+        <errorConditionFormula>CASE(
+ MOD( Date__c - DATE(1900, 1, 7), 7),
+ 0, 0,
+ 6, 0,
+ 1
+)= 0</errorConditionFormula>
+        <errorDisplayField>Date__c</errorDisplayField>
+        <errorMessage>Date must be weekday</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>
