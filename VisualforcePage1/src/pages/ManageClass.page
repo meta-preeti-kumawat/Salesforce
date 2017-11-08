@@ -1,0 +1,46 @@
+<apex:page controller="ClassController" >
+    <apex:form id="classList">
+        <apex:outputPanel >
+            <apex:actionStatus startText="Requesting...">
+                <apex:facet name="stop"> 
+                   	<apex:pageBlock title="Classes">
+                        <apex:pageBlockTable value="{!classes}" var="classDetails">
+                            <apex:column >
+                                <apex:commandLink action="{! setClassObject }" reRender="detail">
+                                   Edit <apex:param name="classId" value="{!classDetails.id}"/>
+                                </apex:commandLink>
+                                &nbsp;|&nbsp;
+                                <apex:commandLink action="{! deleteClass }" reRender="classList">
+                                    Del <apex:param name="classId" value="{!classDetails.id}"/>
+                                </apex:commandLink>
+                            </apex:column>
+                            <apex:column value="{! classDetails.Name}"/>
+                            <apex:column value="{! classDetails.ClassTeacher__c}"/>
+                            <apex:column value="{! classDetails.Fee__c}"/>
+                            <apex:column value="{! classDetails.MaxSize__c}"/>
+                            <apex:column value="{! classDetails.NumberOfStudents__c}"/>
+                        </apex:pageBlockTable>
+                	</apex:pageBlock> 
+                </apex:facet>
+            </apex:actionStatus> 
+        </apex:outputPanel>
+        
+        <apex:outputPanel id="detail">
+            <apex:actionStatus startText="Requesting...">
+                <apex:facet name="stop"> 
+                    <apex:pageBlock title="Edit Class" rendered="{! isClassAvailable }">
+                        <apex:pageBlockSection columns="1" id="editClass">
+                            <apex:outputField value="{! classToEdit.name}" />
+                            <apex:inputField value="{! classToEdit.ClassTeacher__c}" />
+                            <apex:inputField value="{! classToEdit.DetailedDescription__c}" />
+                            <apex:inputField value="{! classToEdit.Fee__c}" />
+                        </apex:pageBlockSection>
+                        <apex:pageBlockButtons >
+                        	<apex:commandButton action="{!save}" value="Save" reRender="classList"/>
+                        </apex:pageBlockButtons>
+                    </apex:pageBlock>
+                </apex:facet>
+            </apex:actionStatus> 
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>
