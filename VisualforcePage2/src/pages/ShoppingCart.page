@@ -1,0 +1,88 @@
+<apex:page standardController="Purchase_Order__c" extensions="ShoppingCartController"  docType="html-5.0">
+    <head>
+        <style type='text/css'>
+            .cartDetails{text-align: right; margin-left:9.5%;}
+            .pullRight{float:right;}
+            .danger{color:red; font-weight: bold;}
+        </style>
+    </head>
+    
+    <apex:form id="cart">
+        <apex:pageBlock title="Your cart" id="cartDetails">
+        	<apex:pageBlockSection rendered="{!order.Customer__c == null}">
+            	<apex:inputField value="{!order.Customer__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+            	<apex:commandButton action="{! createOrder }" value="Start Shopping" reRender="cart" rendered="{! order.Customer__c == null}"/>
+            	<apex:commandButton action="{! cancel }" value="Cancel" immediate="true" html-formnovalidate="formnovalidate"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" rendered="{!order.Customer__c != null}">
+                <apex:outputField value="{! order.Customer__c}"/>
+                <apex:panelGrid columns="2" styleClass="cartDetails">
+                	<apex:outputLabel value="Products in Cart " for="numberOfProducts" styleClass="labelCol" />
+                    <apex:outputText value="{! numberOfProducts}" id="numberOfProducts" styleClass="data2Col"/>
+                    
+                    <apex:outputLabel value="Total Cost " for="totalCost" styleClass="labelCol"/>
+                    <apex:outputText value="{! totalCost}" id="totalCost" styleClass="data2Col"/>
+                </apex:panelGrid>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:outputPanel id="cartList" rendered="{! isProductAvailableInCart }">
+            <apex:actionStatus startText="Requesting...">
+                <apex:facet name="stop"> 
+                   	<apex:pageBlock title="Cart Items">
+                        <apex:messages styleclass="danger"/>
+                        <apex:pageBlockTable value="{!productsInCart}" var="cartProduct">
+                            <apex:column >
+                                <apex:commandLink action="{! deleteProductFromCart }" reRender="cart">
+                                    Remove <apex:param name="cartProductId" assignTo="{! cartProductId}" value="{!cartProduct.Product__r.Id}"/>
+                                </apex:commandLink>
+                            </apex:column>
+                            <apex:column value="{! cartProduct.Product__r.Name}" />
+                            <apex:column headerValue="Quantity"  >
+                                <apex:outputPanel rendered="{! !isEditable || cartProduct.Product__r.Id != cartProductId}" >
+                                	<apex:outputText value="{! cartProduct.Quantity__c}"/>
+                                    <apex:commandButton styleClass="pullRight" action="{! changeEditMode}" value="Edit" reRender="cart">
+                                        <apex:param name="updateProductId" assignTo="{! cartProductId}" value="{!cartProduct.Product__r.Id}"/>
+                                    </apex:commandButton>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{! isEditable && cartProduct.Product__r.Id == cartProductId}" >
+                                	<apex:inputText value="{! cartProduct.Quantity__c}" />
+                                	<apex:commandButton action="{! updateProductInCart}" styleClass="pullRight" value="Save" reRender="cart">
+                                        <apex:param name="updateProductId" assignTo="{! cartProductId}" value="{!cartProduct.Product__r.Id}"/>
+                                    </apex:commandButton>
+                                </apex:outputPanel>
+                                <apex:commandButton action="{! resetQuantity}" value="Reset" styleClass="pullRight" reRender="cart">
+                                    <apex:param name="updateProductId" assignTo="{! cartProductId}" value="{!cartProduct.Product__r.Id}"/>
+                                </apex:commandButton>
+                            </apex:column>
+                            <apex:column value="{! cartProduct.Total_Price__c}" />
+                        </apex:pageBlockTable>
+                        <apex:pageBlockButtons >																								
+                        	<apex:commandButton action="{! checkout }" value="Checkout"/>
+                        </apex:pageBlockButtons>
+                	</apex:pageBlock> 
+                </apex:facet>
+            </apex:actionStatus> 
+        </apex:outputPanel> 
+        
+        <apex:outputPanel id="productList">
+            <apex:actionStatus startText="Requesting...">
+                <apex:facet name="stop"> 
+                    <apex:pageBlock title="Add Products" rendered="{! isProductAvailableInStore }">
+                        <apex:pageBlockTable value="{! allProducts}" var="product">
+                            <apex:column >
+                                <apex:commandLink action="{! addProductToCart }" reRender="cart">
+                                    Add <apex:param name="productId" value="{!product.id}"/>
+                                </apex:commandLink>
+                            </apex:column>
+                            <apex:column value="{! product.Product_Code__c}" />
+                            <apex:column value="{! product.name}" />
+                            <apex:column value="{! product.Price__c}" />
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </apex:facet>
+            </apex:actionStatus> 
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

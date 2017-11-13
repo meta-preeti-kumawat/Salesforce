@@ -1,0 +1,31 @@
+<apex:page standardController="Purchase_Order__c" recordSetVar="orders" sidebar="false">
+    <apex:form >
+        <apex:pageBlock title="Orders">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!URLFOR($Action.Purchase_Order__c.New)}" value="Place New Order"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection rendered="{! orders == null}">
+                Ooops... No Orders are placed yet !!!
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockTable value="{!orders}" var="order" rendered="{! orders != null}">
+                <apex:column >
+                                <apex:commandLink reRender="details">
+                                   View <apex:param name="orderId" value="{!order.id}"/>
+                                </apex:commandLink>
+                            </apex:column>
+                <apex:column value="{! order.Name}"/>
+                <apex:column value="{! order.Customer__c}"/>
+                <apex:column value="{! order.Total_Cost__c}"/>
+                <apex:column value="{! order.Total_Products__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock> 
+	</apex:form>
+    <apex:outputPanel id="details">
+    	<apex:pageBlock rendered="{!$CurrentPage.parameters.orderId != null}">
+            <apex:pageBlockSection columns="1">
+            	<apex:detail subject="{!$CurrentPage.parameters.orderId}" relatedList="true" title="false"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock> 
+    </apex:outputPanel>
+</apex:page>
