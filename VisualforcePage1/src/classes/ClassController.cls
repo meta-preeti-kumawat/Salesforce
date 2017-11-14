@@ -27,8 +27,8 @@ public class ClassController {
     
     public PageReference save(){
         if(classIdMap.containsKey(classId)){
-            update classToEdit;
-        	   classIdMap.put(classId, classToEdit);
+            ClassDAO.updateRecords(new List<Class__c>{classToEdit});
+        	classIdMap.put(classId, classToEdit);
             isClassAvailable = false;
         }
         return null;
@@ -38,6 +38,6 @@ public class ClassController {
         setClassObject();
         classIdMap.remove(classToEdit.id);
         isClassAvailable = false;
-        delete classToEdit;
+        ClassDAO.deleteRecords(new List<Class__c>{classToEdit});
     }
 }
