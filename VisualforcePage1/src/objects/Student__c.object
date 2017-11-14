@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Age__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( NOT( ISBLANK( DOB__c ) ) ,
+  IF( DATE( 2000 , MONTH( DOB__c ) , DAY( DOB__c ) ) &lt;= DATE( 2000 , MONTH( TODAY() ) , DAY( TODAY() ) ),
+     YEAR (Today()) - YEAR ( DOB__c ),
+     YEAR (Today()) - YEAR ( DOB__c ) -1 ),
+  0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class__c</fullName>
+        <externalId>false</externalId>
+        <label>Class</label>
+        <referenceTo>Class__c</referenceTo>
+        <relationshipLabel>Students</relationshipLabel>
+        <relationshipName>Students</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>DOB__c</fullName>
+        <defaultValue>DATE(YEAR(TODAY()) - 3 , MONTH(TODAY()), DAY(TODAY()))</defaultValue>
+        <externalId>false</externalId>
+        <label>DOB</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>First_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>First Name</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Generate_PDF__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;https://c.ap5.visual.force.com/apex/StudentDetailPage?id=&quot;&amp;Id, &quot;Generate PDF&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Generate PDF</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Name</label>
+        <length>20</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Married__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Married</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Last_Name__c  &amp; IF(First_Name__c = null, &quot;&quot;, &quot;, &quot; &amp; First_Name__c)</formula>
+        <label>Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sex__c</fullName>
+        <externalId>false</externalId>
+        <label>Sex</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Male</fullName>
+                    <default>false</default>
+                    <label>Male</label>
+                </value>
+                <value>
+                    <fullName>Female</fullName>
+                    <default>false</default>
+                    <label>Female</label>
+                </value>
+                <value>
+                    <fullName>Others</fullName>
+                    <default>false</default>
+                    <label>Others</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>WifeName__c</fullName>
+        <externalId>false</externalId>
+        <label>WifeName</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Student</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Name__c</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Class__c</columns>
+        <columns>Sex__c</columns>
+        <columns>Age__c</columns>
+        <columns>Married__c</columns>
+        <columns>WifeName__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>MaleStudents</fullName>
+        <columns>NAME</columns>
+        <columns>First_Name__c</columns>
+        <columns>Last_Name__c</columns>
+        <columns>Class__c</columns>
+        <columns>Age__c</columns>
+        <columns>Married__c</columns>
+        <columns>WifeName__c</columns>
+        <columns>Sex__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Sex__c</field>
+            <operation>equals</operation>
+            <value>Male</value>
+        </filters>
+        <label>MaleStudents</label>
+    </listViews>
+    <nameField>
+        <displayFormat>ST-{0000}</displayFormat>
+        <label>Enrollment Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Students</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>First_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Last_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Class__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Sex__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Age__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Married__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>WifeName__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Generate_PDF__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>CheckIfMarried</fullName>
+        <active>true</active>
+        <errorConditionFormula>IF( 
+AND( 
+Married__c, 
+TEXT( Sex__c ) = &quot;Male&quot;, 
+LEN( WifeName__c ) = 0 
+), 
+true, false 
+)</errorConditionFormula>
+        <errorDisplayField>WifeName__c</errorDisplayField>
+        <errorMessage>Wife name is required for all married male student</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ClassCapacity</fullName>
+        <active>true</active>
+        <errorConditionFormula>Class__r.MaxSize__c = Class__r.NumberOfStudents__c
+&amp;&amp; ISNEW()</errorConditionFormula>
+        <errorDisplayField>Class__c</errorDisplayField>
+        <errorMessage>Sorry.. This class is full</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DOBLessThanTODAY</fullName>
+        <active>true</active>
+        <errorConditionFormula>DOB__c &gt;  TODAY()</errorConditionFormula>
+        <errorMessage>DOB Should be less than Current date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ValidateDOB</fullName>
+        <active>false</active>
+        <errorConditionFormula>Age__c &lt; 3</errorConditionFormula>
+        <errorDisplayField>DOB__c</errorDisplayField>
+        <errorMessage>We cannot enroll a student below 3 years of age</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

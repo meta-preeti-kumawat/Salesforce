@@ -1,0 +1,76 @@
+<apex:page standardController="Account" recordSetVar="accounts" extensions="AccountControllerPaginationExtension">
+    <apex:form >
+    
+        <apex:pageBlock id="search_section" title="Search Parameters">
+        	<apex:pageBlockSection columns="1">
+            	<apex:pageBlockSectionItem >
+                    Billing City: <apex:inputText value="{!SearchBillingCity}"/>
+                </apex:pageBlockSectionItem> 
+            	<apex:pageBlockSectionItem >
+                    Billing State: <apex:inputText value="{!SearchBillingState}"/>
+                </apex:pageBlockSectionItem>
+            	<apex:pageBlockSectionItem >
+                    Billing Country: <apex:inputText value="{!SearchBillingCountry}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+            	<apex:commandButton value="Search" action="{!Search}" reRender="accounts_list" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock> 
+        <apex:pageBlock id="accounts_list" title="Accounts List">
+        	<!-- Filter: &nbsp; 
+            <apex:selectList value="{!filterId}" size="1">
+                <apex:selectOptions value="{! listViewOptions}" />
+                <apex:actionSupport event="onchange" reRender="accounts_list" />
+            </apex:selectList>
+            <!-- <apex:commandButton value="Search" reRender="accounts_list" /> -->
+            <!-- Accounts List -->
+            <apex:pageBlockTable value="{! accounts}" var="acc">
+                <apex:column value="{! acc.Name}"/>
+                <apex:column value="{! acc.BillingCity}"/>
+                <apex:column value="{! acc.BillingState}"/>
+                <apex:column value="{! acc.BillingCountry}"/>
+            </apex:pageBlockTable>
+            
+            <!-- Pagination -->
+            <table style="width:100%">
+                <tr>
+                	<td>
+                    	<!-- Page X of Y-->
+                        Page: <apex:outputText value="{!PageNumber} of {! CEILING(ResultSize / PageSize) }" />
+                    </td>
+                	<td align="right">
+                        <!-- First Page --> 
+                        <!-- active -->
+                        <apex:commandLink action="{!First}" value="|< First" rendered="{! HasPrevious}" />
+                        <!-- inactive -->
+                        <apex:outputText style="color: #ccc"  value="|< First" rendered="{! NOT(HasPrevious)}" />
+                        
+                        &nbsp; &nbsp;
+                    	<!-- Previous Page --> 
+                        <!-- active -->
+                        <apex:commandLink action="{!Previous}" value="<< Previous" rendered="{! HasPrevious}" />
+                        <!-- inactive -->
+                        <apex:outputText style="color: #ccc"  value="<< Previous" rendered="{! NOT(HasPrevious)}" />
+                        
+                        &nbsp; &nbsp;
+                        <!-- Next Page --> 
+                        <!-- active -->
+                        <apex:commandLink action="{!Next}" value="Next >>" rendered="{! HasNext}" />
+                        <!-- inactive -->
+                        <apex:outputText style="color: #ccc"  value="Next >>" rendered="{! NOT(HasNext)}" />
+                        
+                        &nbsp; &nbsp;
+                        <!-- Last Page --> 
+                        <!-- active -->
+                        <apex:commandLink action="{!Last}" value="Last >|" rendered="{! HasNext}" />
+                        <!-- inactive -->
+                        <apex:outputText style="color: #ccc"  value="Last >|" rendered="{! NOT(HasNext)}" />
+                    </td>
+                    <td >
+                    </td>
+                </tr>
+            </table>
+    	</apex:pageBlock>
+    </apex:form>
+</apex:page>

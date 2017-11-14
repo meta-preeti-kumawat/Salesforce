@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>AccountControllerExtension</members>
+        <members>AccountControllerPaginationExtension</members>
+        <members>AttachmentsSelector</members>
+        <members>BillToContactController</members>
+        <members>ClassController</members>
+        <members>ClassesSelector</members>
+        <members>ContactSelector</members>
+        <members>JSONGenerator</members>
+        <members>OpportunitySelector</members>
+        <members>StudentExtension</members>
+        <members>StudentsSelector</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>AccountsList</members>
+        <members>AccountsListWithPagination</members>
+        <members>BillToContactPage</members>
+        <members>ClassesPage</members>
+        <members>ManageClass</members>
+        <members>StudentDetailPDFPage</members>
+        <members>StudentDetailPage</members>
+        <members>StudentsListJSONPage</members>
+        <members>StudentsPage</members>
+        <members>TeacherRecordTypeInlineDisplay</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>Class__c</members>
+        <members>Student__c</members>
+        <name>CustomObject</name>
+    </types>
+    <version>41.0</version>
+</Package>

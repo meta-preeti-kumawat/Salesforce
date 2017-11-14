@@ -1,0 +1,6 @@
+<apex:page standardController="Contact">
+    <style type="text/css">
+    	center{ background-color: #000; color:#fff; padding:10px;}
+    </style>
+    <center>{! Contact.RecordType.Name}</center>
+</apex:page>

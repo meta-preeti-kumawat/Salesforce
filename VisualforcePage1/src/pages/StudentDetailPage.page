@@ -1,0 +1,30 @@
+<apex:page action="{!attachPDF}" renderAs="pdf" standardController="Student__c" extensions="StudentExtension" showHeader="false" sidebar="false">
+    <h1>
+        <apex:outputText value="{! Upper(Student__c.First_Name__c)} {! UPPER(Student__c.Last_Name__c)}" />
+    </h1>
+    <apex:panelGrid columns="2">
+        <apex:outputLabel value="{! $ObjectType.Student__c.fields.Name.label}" />
+        <apex:outputText value=": {! Student__c.Name} "/>
+        
+        <apex:outputLabel value="{! $ObjectType.Student__c.fields.First_Name__c.label}" />
+        <apex:outputText value=": {! UPPER(LEFT(Student__c.First_Name__c, 1))&MID(Student__c.First_Name__c, 2, LEN(Student__c.First_Name__c))} "/>
+        
+        <apex:outputLabel value="{! $ObjectType.Student__c.fields.Last_Name__c.label}" />
+        <apex:outputText value=": {! UPPER(LEFT(Student__c.Last_Name__c, 1))&MID(Student__c.Last_Name__c, 2, LEN(Student__c.Last_Name__c))} "/>
+        
+        <apex:outputLabel value="{! $ObjectType.Student__c.fields.Class__c.label}" />
+        <apex:outputText value=": {! Student__c.Class__r.Name}" />
+        
+        <apex:outputLabel value="{! $ObjectType.Student__c.fields.Age__c.label}" />
+        <apex:outputText value=": {! FLOOR(Student__c.Age__c)} year(s)" />
+        
+        <apex:outputLabel value="{! $ObjectType.Student__c.fields.DOB__c.label} " />
+        <apex:outputText value=": {0, date, MMMM d','  yyyy}">
+            <apex:param value="{!Student__c.DOB__c}" /> 
+        </apex:outputText>
+        
+        <apex:outputLabel value="{! $ObjectType.Student__c.fields.Sex__c.label}" />
+        <apex:outputText value=": {! Student__c.Sex__c}" />
+        
+    </apex:panelGrid>
+</apex:page>
