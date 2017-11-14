@@ -57,7 +57,6 @@ public with sharing class AccountControllerExtension {
         if(filterWhere != ''){
             query += filterWhere;
         }
-       	System.debug(query);
         return null;
     }
 }
