@@ -56,8 +56,7 @@ public with sharing class AccountControllerPaginationExtension {
         if(filterWhere != ''){
             query += filterWhere;
         }
-       	System.debug(query);
-        return null;
+       	return null;
     }
     public Boolean hasNext  
     {  
