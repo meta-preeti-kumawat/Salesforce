@@ -28,7 +28,7 @@ public class ClassController {
     public PageReference save(){
         if(classIdMap.containsKey(classId)){
             update classToEdit;
-        	classIdMap.put(classId, classToEdit);
+        	   classIdMap.put(classId, classToEdit);
             isClassAvailable = false;
         }
         return null;
