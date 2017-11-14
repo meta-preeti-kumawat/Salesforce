@@ -1,0 +1,63 @@
+<apex:component controller="GridController">
+    <apex:attribute name="fields" assignTo="{!fieldsParam}" type="String" required="true" description=""/>
+    <apex:attribute name="type" assignTo="{!typeParam}" type="String" required="true" description=""/>
+    <apex:attribute name="sortBy" assignTo="{!sortByParam}" type="String" default="Name" required="false" description=""/>
+    <apex:attribute name="sortDescending" assignTo="{!sortDescParam}" type="Boolean" required="false" description=""/>
+    <apex:attribute name="pageSize" assignTo="{!pageSizeParam}" type="Integer" required="false" description=""/>  
+   	<apex:attribute name="title" type="String" required="false" description=""/>
+    
+    {!Init}
+    <apex:pageBlock >
+        <apex:pageBlockButtons location="top">
+        	<apex:outputPanel id="pageButtons">
+            	<apex:commandButton title="Previous" action="{! rowManager.Previous}" value="Previous" disabled="{!!rowManager.hasPrevious}" reRender="grid, pageButtons"/>
+                <apex:commandButton title="First Page" action="{! rowManager.First}" value="First Page" disabled="{!!rowManager.hasPrevious}" reRender="grid, pageButtons"/>
+                <apex:outputText >...</apex:outputText>
+                <apex:repeat value="{!rowManager.previousPageNumbers}" var="previousPageNumber">
+                    <apex:outputPanel >
+                        <apex:commandButton value="{!previousPageNumber}" action="{!rowManager.skipToPage}" reRender="grid, pageButtons">
+                            <apex:param name="pageNumber" id="pageNumber" value="{!previousPageNumber}" assignTo="{!rowManager.pageNumber}" />
+                        </apex:commandButton>
+                    </apex:outputPanel>
+                    &nbsp;
+                </apex:repeat> 
+                <apex:repeat value="{!rowManager.nextPageNumbers}" var="nextPageNumber">
+                    <apex:outputPanel >
+                        <apex:commandButton value="{!nextPageNumber}" action="{!rowManager.skipToPage}" reRender="grid, pageButtons">
+                            <apex:param name="pageNumber" id="pageNumber" value="{!nextPageNumber}" assignTo="{!rowManager.PageNumber}" />
+                        </apex:commandButton>
+                    </apex:outputPanel>
+                    &nbsp;
+                </apex:repeat> 
+                <apex:outputText >...</apex:outputText>
+                <apex:commandButton title="Last Page" action="{! rowManager.Last}" value="Last Page" disabled="{!!rowManager.hasNext}" reRender="grid, pageButtons"/>
+                <apex:commandButton title="Next" action="{! rowManager.Next}" value="Next" disabled="{!!rowManager.hasNext}" reRender="grid, pageButtons"/>
+            </apex:outputPanel>
+        </apex:pageBlockButtons>
+        <apex:outputPanel layout="block" id="grid">
+            <apex:pageBlockTable value="{! rowManager.rows}" var="row" id="table" width="100%">
+                <apex:repeat value="{! rowManager.soqlQuery.fieldsList}" var="fieldName">
+                    <apex:column >
+                        <apex:facet name="header">
+                            <apex:commandLink action="{! doSort }"
+                                              value="{! $ObjectType[soqlQuery.objectName].fields[fieldName].Label} 
+                                                     {! if(soqlQuery.sortFieldName==fieldName, 
+                                                        if(soqlQuery.sortDescending, '▼','▲'),
+                                                        ''
+                                                     )}"
+                                              reRender="{! $Component.grid}, pageButtons">
+                                <apex:param name="sortFieldName" value="{! fieldName}" assignTo="{! soqlQuery.sortFieldName}"/>
+                            </apex:commandLink>
+                        </apex:facet>     
+                        <apex:outputPanel >
+                            <apex:outputField value="{!row[fieldName]}" />
+                        </apex:outputPanel>
+                    </apex:column>
+                </apex:repeat>
+				
+            	<apex:facet name="footer">Showing Page # {!rowManager.pageNumber} of {!rowManager.totalPages}</apex:facet>            
+            </apex:pageBlockTable> 
+            
+        </apex:outputPanel>
+    </apex:pageBlock>
+</apex:component>

@@ -1,0 +1,9 @@
+<apex:page >
+    <apex:form >
+        <c:GridComponentWithPaginationAndSorting fields="Name,Product_Code__c,Price__c,Type__c"
+                                                 pageSize="10"
+                                                 sortDescending="false"
+                                                 type="Product__c" />
+    </apex:form>
+    
+</apex:page>
