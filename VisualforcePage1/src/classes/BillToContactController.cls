@@ -4,7 +4,8 @@ public class BillToContactController {
     public Id contactId {get; set;}
     private final PageReference redirectPage;
     private boolean isOpportunityAvailable;
-    
+    private List<Opportunity> listOfOpportunitiesToUpdate = new List<Opportunity>();
+        
     public BillToContactController(){
         Set<Id> setOfOpportunityId = new Set<Id>();
         setOfOpportunityId.add(ApexPages.currentPage().getParameters().get('id'));
@@ -41,21 +42,22 @@ public class BillToContactController {
     public PageReference clear(){
         if(isOpportunityAvailable){
             opportunity.BillToContact__c = null;
-            update opportunity;
+            listOfOpportunitiesToUpdate.add(opportunity);
         }
+        OpportunityDAO.updateRecords(listOfOpportunitiesToUpdate);
         return redirectPage;
     }
     
     public PageReference save(){
         if(isOpportunityAvailable){
             opportunity.BillToContact__c = contactId;        
-            update opportunity;
+            listOfOpportunitiesToUpdate.add(opportunity);
         }
+        OpportunityDAO.updateRecords(listOfOpportunitiesToUpdate);
         return redirectPage;
     }
     
     public PageReference cancel(){
         return redirectPage;       
     }
-   
 }
