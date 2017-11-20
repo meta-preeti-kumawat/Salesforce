@@ -1,0 +1,34 @@
+<apex:page controller="StudentsController">
+    <style>
+    	.errorMessage{color:#d41212;}
+    </style>
+    <apex:form >
+        <apex:pageBlock title="Delete Students" id="block">
+            <apex:pageBlockButtons >
+                <apex:commandButton onclick="deleteRecords()" value="Continue" reRender="block"/>
+                <apex:commandButton onclick="cancel()" value="Cancel" reRender="block"/>
+            </apex:pageBlockButtons>
+          	<apex:pageBlockTable value="{!selectedStudents}" var="student" rendered="{!selectedStudents!=null}">
+            	<apex:column value="{!student.Name}"/>
+            	<apex:column value="{!student.First_Name__c}"/>
+            	<apex:column value="{!student.Last_Name__c}"/>
+            	<apex:column value="{!student.Class__c}"/>
+            </apex:pageBlockTable>
+            <apex:outputText value="No Records Selected" rendered="{!selectedStudents==null}" styleClass="errorMessage"/>
+        </apex:pageBlock>
+    	<apex:includeScript value="/soap/ajax/41.0/connection.js"/>
+    </apex:form>
+    <script type="text/javascript">
+        sforce.connection.sessionId = '{!$Api.Session_ID}';
+    	function deleteRecords(){
+            var ids = [];
+            ids = JSON.parse('{!stringIds}');	
+            sforce.connection.deleteIds(ids);
+            window.location.href ='{!$CurrentPage.parameters.retURl}';
+        }
+    
+        function cancel(){
+            window.location.href ='{!$CurrentPage.parameters.retURl}';
+        }
+    </script>
+</apex:page>
