@@ -1,31 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
+        <members>AccountControllerExtension</members>
+        <members>AccountControllerPaginationExtension</members>
         <members>AccountDAO</members>
         <members>AccountService</members>
+        <members>BillToContactController</members>
         <members>CityManagersSelector</members>
+        <members>ClassController</members>
         <members>Classes</members>
         <members>ClassesSelector</members>
         <members>ContactDAO</members>
         <members>ContactSelector</members>
         <members>DateUtility</members>
         <members>EmailToOpportunityOwner</members>
+        <members>GridController</members>
+        <members>JSONGenerator</members>
         <members>Loans</members>
         <members>OpportunityLineItemsSelector</members>
         <members>OpportunityOwnersMailSchedule</members>
         <members>OrganizationDAO</members>
         <members>RelatedAccount</members>
+        <members>ShoppingCartController</members>
         <members>Stack</members>
+        <members>StudentExtension</members>
+        <members>TestAccountControllerExtension</members>
+        <members>TestAccountControllerPaginationExtension</members>
         <members>TestAccountDAO</members>
         <members>TestAccountService</members>
+        <members>TestBillToContactController</members>
         <members>TestClass</members>
+        <members>TestClassController</members>
         <members>TestContactDAO</members>
         <members>TestDateUtility</members>
         <members>TestEmailScheduler</members>
+        <members>TestGridController</members>
+        <members>TestJSONGenerator</members>
         <members>TestLoansTrigger</members>
         <members>TestOrganization</members>
         <members>TestRelatedAccount</members>
+        <members>TestShoppingCartController</members>
         <members>TestStack</members>
+        <members>TestStudentExtension</members>
         <members>TestTriggerForFemaleStudentsInClass</members>
         <members>TestTriggerForFullClass</members>
         <members>TestTriggerForHindiTeacher</members>
