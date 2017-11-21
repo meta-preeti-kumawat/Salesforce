@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>StudentsController</members>
+        <members>StudentsSelector</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>AddNewStudentToClass</members>
+        <members>DeleteStudentsPage</members>
+        <members>StudentDetailTable</members>
+        <members>StudentsPageUsingJavaScript</members>
+        <name>ApexPage</name>
+    </types>
+    <version>41.0</version>
+</Package>
