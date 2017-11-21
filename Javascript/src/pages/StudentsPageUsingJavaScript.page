@@ -1,0 +1,42 @@
+<apex:page standardController="Student__c" sidebar="false" showHeader="false" id="page"> 
+    <apex:form id="form">
+        <apex:pageBlock title="Student Details" id="block">
+            <apex:pageMessages />
+            <apex:pageBlockSection columns="1" id="section">
+        		<apex:outputField value="{!Student__c.Name}"/>
+        		<apex:inputField value="{!Student__c.First_Name__c}" id="fname"/>
+        		<apex:inputField value="{!Student__c.Last_Name__c}" id="lname"/>
+            </apex:pageBlockSection>
+    		<apex:pageBlockButtons >
+            	<apex:commandButton onclick="save()" value="Save"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:includeScript value="/soap/ajax/41.0/connection.js"/>
+	</apex:form>
+    <script type="text/javascript">
+        sforce.connection.sessionId = '{!$Api.Session_ID}';
+		function save(){
+        	var students = sforce.connection.query("SELECT Id From Student__c WHERE Id = '{! $CurrentPage.parameters.id}' LIMIT 1");
+            if(students != null){
+               	student = students.getArray('records')[0];
+                student.First_Name__c = document.getElementById('page:form:block:section:fname').value;
+                student.Last_Name__c = document.getElementById('page:form:block:section:lname').value;
+                     
+                var result = sforce.connection.update([student]);
+                if (result[0].getBoolean("success")) {
+                    window.close();
+                } 
+                else {
+                    alert("Failed to update Student \n" + result[0].errors.message);
+                }
+            }
+    		else{
+            	alert('No data for current student');
+            }
+        }
+        window.onunload = refreshParent;
+        function refreshParent() {
+            window.opener.location.reload();
+        }
+    </script>
+</apex:page>
