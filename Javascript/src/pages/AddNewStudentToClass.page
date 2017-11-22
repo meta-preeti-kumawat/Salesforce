@@ -1,0 +1,42 @@
+<apex:page sidebar="false" showHeader="false" id="page"> 
+    <head>
+        <script>
+            sforce.connection.sessionId = '{!$Api.Session_ID}';
+            function addStudent(){ 
+                var student = new sforce.SObject("Student__c");
+                student.First_Name__c = document.getElementById('page:form:block:section:fname').value;
+                student.Last_Name__c = document.getElementById('page:form:block:section:lname').value;
+                student.Class__c = "{!$CurrentPage.parameters.id}";
+                student.Sex__c = document.getElementById('page:form:block:section:gender').value;                
+                var result = sforce.connection.create([student]);
+                if (result[0].getBoolean("success")) {
+                    alert("New Student created");
+                    window.close();
+                } 
+                else {
+                    alert("Failed to create Student \n" + result[0].errors.message);
+                }
+            }
+        </script>
+    </head>
+    <apex:form id="form">
+        <apex:pageBlock id="block">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" onclick="addStudent();"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection id="section">
+                <apex:outputText >First Name</apex:outputText>
+                <apex:inputText id="fname"/>
+                <apex:outputText >Last Name</apex:outputText>
+                <apex:inputText id="lname" required="true"/>
+                <apex:outputText >Gender</apex:outputText>
+                <apex:selectList id="gender" size="1" required="true">
+                    <apex:selectOption itemValue="Male" itemLabel="Male"/>
+                    <apex:selectOption itemValue="Female" itemLabel="Female"/>
+                </apex:selectList>
+            </apex:pageBlockSection>
+            <apex:includeScript value="/soap/ajax/41.0/connection.js"/>
+            <apex:includeScript value="/soap/ajax/41.0/apex.js"/>
+        </apex:pageBlock>
+    </apex:form>    
+</apex:page>

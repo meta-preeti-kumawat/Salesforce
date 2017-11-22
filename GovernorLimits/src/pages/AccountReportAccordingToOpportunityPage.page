@@ -1,0 +1,18 @@
+<apex:page controller="AccountsController">
+    <apex:pageBlock >
+    	<apex:pageBlockTable value="{!results}" var="result">
+        	<apex:column >
+            	<apex:facet name="header">Account ID</apex:facet>
+                <apex:outputText value="{! result['accId'] }"/>
+            </apex:column>
+            <apex:column >
+            	<apex:facet name="header">Total Amount</apex:facet>
+                <apex:outputText value="{! result['OpportunityAmountSum']}"/>
+            </apex:column>
+            <apex:column >
+            	<apex:facet name="header">Opportunity Count</apex:facet>
+                <apex:outputText value="{! result['OpportunityAmountCount']}"/>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>
